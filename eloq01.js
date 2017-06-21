@@ -22,10 +22,4 @@ console.log(null || "user")
 console.log("Karl" || "user")
 // → Karl
 
-console.log("-------------Variables-----------------------");
-
-var ten=10;
-console.log("Calculate value : " + ten*ten);
-
-alert("good morning!")
-
+//alert("good morning!")
