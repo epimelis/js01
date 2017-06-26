@@ -95,3 +95,5 @@ console.log("Value of object2=", object2.value);
 console.log("Value of object3=", object3.value);
 
 console.log("OBJECT2 IS MUTABLE!!!")
+
+console.log("----------------------------------------------------")
