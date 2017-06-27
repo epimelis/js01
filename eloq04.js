@@ -96,4 +96,159 @@ console.log("Value of object3=", object3.value);
 
 console.log("OBJECT2 IS MUTABLE!!!")
 
-console.log("----------------------------------------------------")
+console.log("----Squirrel log-------------------------------------------")
+
+console.log(journal)
+console.log("aaa1")
+var journal =[];
+console.log(journal)
+console.log("aaa2")
+function addEntry(events, turnIntoSquirrel) {
+    journal.push(
+        {events: events,
+        squirrel: turnIntoSquirrel
+        }
+    )
+};
+
+addEntry(["work", "touched tree", "pizza", "running",
+          "television"], false);
+addEntry(["work", "ice cream", "cauliflower", "lasagna",
+          "touched tree", "brushed teeth"], false);
+addEntry(["weekend", "cycling", "break", "peanuts",
+          "beer"], true);
+console.log(journal);
+
+console.log("----Compute correlation-------------------------------------------")
+function phi(table) {
+  return (table[3] * table[0] - table[2] * table[1]) /
+    Math.sqrt((table[2] + table[3]) *
+              (table[0] + table[1]) *
+              (table[1] + table[3]) *
+              (table[0] + table[2]));
+}
+
+console.log(phi([76, 9, 4, 1]));
+// → 0.068599434
+
+function hasEvent(event, entry) {
+  return entry.events.indexOf(event) != -1;
+}
+
+function tableFor(event, journal) {
+  var table = [0, 0, 0, 0];
+  for (var i = 0; i < journal.length; i++) {
+    var entry = journal[i], index = 0;
+    if (hasEvent(event, entry)) index += 1;
+    if (entry.squirrel) index += 2;
+    table[index] += 1;
+  }
+  return table;
+}
+
+console.log(tableFor("pizza", journal));
+// → [76, 9, 4, 1]
+console.log("----Objects as maps----------------------------------------")
+var map = {};
+function storePhi(event, phi) {
+  map[event] = phi;
+}
+
+storePhi("pizza", 0.069);
+storePhi("touched tree", -0.081);
+console.log("pizza" in map);
+// → true
+console.log(map["touched tree"]);
+// → -0.081
+
+for (var event in map)
+  console.log("The correlation for '" + event +
+              "' is " + map[event]);
+// → The correlation for 'pizza' is 0.069
+// → The correlation for 'touched tree' is -0.081
+
+console.log("----Final analysis----------------------------------------")
+
+function gatherCorrelations(journal) {
+  var phis = {};
+  for (var entry = 0; entry < journal.length; entry++) {
+    var events = journal[entry].events;
+    for (var i = 0; i < events.length; i++) {
+      var event = events[i];
+      if (!(event in phis))
+        phis[event] = phi(tableFor(event, journal));
+    }
+  }
+  return phis;
+}
+
+var correlations = gatherCorrelations(journal);
+console.log(correlations.pizza);
+// → 0.068599434
+console.log("----------")
+for (var event in correlations)
+  console.log(event + ": " + correlations[event]);
+
+  for (var event in correlations) {
+    var correlation = correlations[event];
+    if (correlation > 0.1 || correlation < -0.1)
+      console.log(event + ": " + correlation);
+}
+console.log("----------")
+for (var i = 0; i < journal.length; i++) {
+  var entry = journal[i];
+  if (hasEvent("peanuts", entry) &&
+     !hasEvent("brushed teeth", entry))
+    entry.events.push("peanut teeth");
+}
+console.log(phi(tableFor("peanut teeth", journal)));
+console.log("----------")
+
+
+console.log("----Further arrayology----------------------------------------")
+var todoList = [];
+function rememberTo(task) {
+  todoList.push(task);
+}
+function whatIsNext() {
+  return todoList.shift();
+}
+function urgentlyRememberTo(task) {
+  todoList.unshift(task);
+}
+console.log(todoList)
+console.log("----------")
+rememberTo("aaa")
+rememberTo("bbb")
+console.log(todoList)
+console.log("----------")
+console.log(whatIsNext())
+console.log("----------")
+console.log(whatIsNext())
+console.log("----------")
+console.log(todoList)
+console.log("-----run urgentlyRememberTo-----")
+urgentlyRememberTo("ccc")
+console.log(todoList)
+
+console.log("----------")
+
+console.log([1, 2, 3, 2, 1].indexOf(2));
+// → 1
+console.log([1, 2, 3, 2, 1].lastIndexOf(2));
+// → 3
+
+console.log("-----slice-----")
+console.log([5, 6, 7, 8, 9].slice(2, 4));
+// → [2, 3]
+console.log([5, 6, 7, 8, 9].slice(2));
+// → [2, 3, 4]
+
+function remove(array, index) {
+  return array.slice(0, index)
+    .concat(array.slice(index + 1));
+}
+console.log(remove(["a", "b", "c", "d", "e"], 2));
+// → ["a", "b", "d", "e"]
+
+console.log("-----String and properties----------------------------")
