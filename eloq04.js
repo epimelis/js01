@@ -282,3 +282,24 @@ function addEntry2(squirrel) {
 addEntry2(true, "work", "touched tree", "pizza",
          "running", "television");
 console.log(journal2);
+
+console.log("-----The Math object----------------------------")
+
+function randomPointOnCircle(radius) {
+    var angle = Math.random() *2*Math.PI;
+    return { x: radius * Math.cos(angle),
+             y: radius * Math.sin(angle)};
+}
+console.log(randomPointOnCircle(2));
+
+var xRandom;
+xRandom=Math.random();
+console.log(xRandom);
+console.log(Math.floor(xRandom*10));
+console.log(Math.ceil(xRandom*10));
+
+console.log("-----The global object----------------------------")
+
+var myVar=10;
+console.log("myVar" in window)
+console.log(window.myVar)
