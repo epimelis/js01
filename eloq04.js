@@ -252,3 +252,33 @@ console.log(remove(["a", "b", "c", "d", "e"], 2));
 // → ["a", "b", "d", "e"]
 
 console.log("-----String and properties----------------------------")
+
+var myString="Fido"
+myString.newProperty ="value1"
+console.log(myString.toUpperCase())
+console.log(myString.length)
+console.log(myString.indexOf("i"))
+console.log("CharAt 3=", myString.charAt("3"))
+console.log("myString[3]=", myString[3])
+console.log(myString.newProperty)
+console.log(myString.slice(1,3))
+
+console.log("-----arguments object----------------------------")
+
+function args() {
+console.log("There are ", arguments.length, " number of args entered");
+}
+
+args();
+args(1,2,3);
+
+var journal2=[]
+function addEntry2(squirrel) {
+  var entry = {events: [], squirrel: squirrel};
+  for (var i = 1; i < arguments.length; i++)
+    entry.events.push(arguments[i]);
+  journal2.push(entry);
+};
+addEntry2(true, "work", "touched tree", "pizza",
+         "running", "television");
+console.log(journal2);
